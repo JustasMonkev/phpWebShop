@@ -1,7 +1,6 @@
 $(document).ready(function () {
-    cartActions()
     $("#myInput").on('keyup', function () {
-        var search = $(this).val().toLowerCase();
+        let search = $(this).val().toLowerCase();
         //Go through each list item and hide if not match search
 
         $("#products form").each(function () {
@@ -12,6 +11,7 @@ $(document).ready(function () {
             }
         });
     });
+    cartActions()
 });
 
 function cartActions() {
@@ -50,7 +50,7 @@ function quantityChanged(event) {
 
 // Adds item to cart //
 function addToCartClicked(event) {
-    let shopItem = event.target.parentElement.parentElement
+    let shopItem = event.target.parentElement.parentElement.parentElement
 
     let productTitle = shopItem.getElementsByClassName('shop-item-title')[0].innerText
 
@@ -59,6 +59,8 @@ function addToCartClicked(event) {
     let imageSrc = shopItem.getElementsByClassName('shop-item-image')[0].src
 
     addItemToCart(productTitle, productPrice, imageSrc)
+
+    $.post('index.php', $(shopItem.getAttribute("id")).serialize())
 
     updateCartTotal()
 }
@@ -74,7 +76,7 @@ function addItemToCart(title, price, imageSrc) {
             <img class="cart-item-image" src="${imageSrc}" width="100" height="100" alt="img">
             <span class="cart-item-title">${title}</span>
         </div>
-        <span class="cart-price cart-column" data-item-price = "${price.replaceAll("\D+", "")}">${price} €</span>
+        <span class="cart-price cart-column" data-item-price = "${price}">${price} €</span>
         <div class="cart-quantity cart-column">
             <input class="cart-quantity-input" type="number" value="1">
             <button class="btn btn-danger" type="button">REMOVE</button>

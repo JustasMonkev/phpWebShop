@@ -2,7 +2,7 @@
 function component($productname, $productprice, $productimg, $productDate, $productid)
 {
     $element = "
-                <form action=\"index.php\" method=\"post\" id = \"$productid\" data-date= $productDate data-price= $productprice>
+                <form action=\"index.php\" method=\"post\" data-date= $productDate data-price= $productprice onclick=\"updateCartTotal(); return false;\">
                     <div class= \"shop-item\">
 <span class=\"shop-item-title\">$productname</span>
                         <img src= \"$productimg\"
@@ -11,7 +11,8 @@ function component($productname, $productprice, $productimg, $productDate, $prod
                                 <span class= \"shop-item-price\">€ $productprice</span>
                     <div class= \"shop-item-details\">
                         <pre>  </pre>
-                        <button class= \"btn btn-primary shop-item-button\" type= \"button\">ADD TO CART</button>
+                        <button type=\"submit\" class=\"btn btn-primary shop-item-button\" name=\"add\">Add to Cart</button>
+                         <input type='hidden' name='product_id' value='$productid'>
                     </div>
                     </div>
                 </form>

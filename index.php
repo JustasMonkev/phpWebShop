@@ -1,7 +1,5 @@
 <?php
 
-session_start();
-
 require_once('php/CreateDb.php');
 require_once('./php/component.php');
 
