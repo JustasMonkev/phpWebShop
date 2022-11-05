@@ -1,9 +1,15 @@
 $(document).ready(function () {
     cartActions()
-    $("#myInput").on("keyup", function () {
-        let value = $(this).val().toLowerCase();
-        $("#myList div").filter(function () {
-            $(this).toggle($(this).text().toLowerCase().indexOf(value) > -1)
+    $("#myInput").on('keyup', function () {
+        var search = $(this).val().toLowerCase();
+        //Go through each list item and hide if not match search
+
+        $("#products form").each(function () {
+            if ($(this).html().toLowerCase().indexOf(search) !== -1) {
+                $(this).show();
+            } else {
+                $(this).hide();
+            }
         });
     });
 });
@@ -22,17 +28,8 @@ function cartActions() {
     for (const addToCartButton of document.getElementsByClassName('shop-item-button')) {
         addToCartButton.addEventListener('click', addToCartClicked)
     }
-
-    document.getElementsByClassName('btn-purchase')[0].addEventListener('click', purchaseClicked)
 }
 
-function purchaseClicked() {
-    const cartItem = document.getElementsByClassName('cart-items')[0]
-    while (cartItem.hasChildNodes()) {
-        cartItem.removeChild(cartItem.firstChild)
-    }
-    updateCartTotal()
-}
 
 // Removes item from cart //
 function removeCartItem(event) {
@@ -72,13 +69,12 @@ function addItemToCart(title, price, imageSrc) {
     const cartRow = document.createElement('div');
     cartRow.classList.add('cart-row')
     const cartItems = document.getElementsByClassName('cart-items')[0];
-
     cartRow.innerHTML = `
         <div class="cart-item cart-column">
             <img class="cart-item-image" src="${imageSrc}" width="100" height="100" alt="img">
             <span class="cart-item-title">${title}</span>
         </div>
-        <span class="cart-price cart-column" data-item-price = "${price}">${price}</span>
+        <span class="cart-price cart-column" data-item-price = "${price.replaceAll("\D+", "")}">${price} €</span>
         <div class="cart-quantity cart-column">
             <input class="cart-quantity-input" type="number" value="1">
             <button class="btn btn-danger" type="button">REMOVE</button>
@@ -143,9 +139,7 @@ function sortBySelectedOption() {
 
 function displaySortedItems(array) {
     for (const element of array) {
-        let div = document.createElement("div");
-        div.appendChild(element);
-        document.getElementById("products").append(div);
+        document.getElementById("products").append(element);
     }
     const divs = Array.from(document.getElementsByTagName('div'));
 
