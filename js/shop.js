@@ -114,26 +114,41 @@ const productsDates = Array.from(document.querySelectorAll("[data-date]"));
 
 const selectedValue = document.getElementById("myInput-sort");
 
-const priceArray = function () {
+const priceArray = function (sortingOption) {
     displaySortedItems(productPrices
         .sort(function (a, b) {
-            return a.getAttribute("data-price") - b.getAttribute("data-price");
+            if (sortingOption === 'low') {
+                return a.getAttribute("data-price") - b.getAttribute("data-price");
+            }
+            return b.getAttribute("data-price") - a.getAttribute("data-price");
         }));
 }
 
-const sortProductsByDate = function () {
+const sortProductsByDate = function (sortingOption) {
     displaySortedItems(productsDates
         .sort(function (a, b) {
-            return new Date(b.getAttribute("data-date")).getTime() - new Date(a.getAttribute("data-date")).getTime();
+            if (sortingOption === 'newest') {
+                return new Date(b.getAttribute("data-date")).getTime() - new Date(a.getAttribute("data-date")).getTime();
+            }
+            return new Date(a.getAttribute("data-date")).getTime() - new Date(b.getAttribute("data-date")).getTime();
         }));
 }
 
 function sortBySelectedOption() {
-    if (selectedValue.value === "Price") {
-        priceArray();
+    if (selectedValue.value === "Sort by highest price") {
+        priceArray("high");
     }
-    if (selectedValue.value === "Data") {
-        sortProductsByDate();
+
+    if (selectedValue.value === "Sort by lowest price") {
+        priceArray("low");
+    }
+
+    if (selectedValue.value === "Sort by newest albums") {
+        sortProductsByDate("newest");
+    }
+
+    if (selectedValue.value === "Sort by oldest albums") {
+        sortProductsByDate("oldest");
     }
 }
 

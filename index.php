@@ -46,8 +46,10 @@ $database = new CreateDb("Products", "Albums");
                     <input id="myInput" class="form-control" type="text" placeholder="Search..">
                     <select onclick="sortBySelectedOption()" id="myInput-sort" class="rounded">
                         <option value="empty"> Sort by...</option>
-                        <option value="Price"> Price</option>
-                        <option value="Data"> Album date</option>
+                        <option value="Sort by lowest price">Sort by lowest price</option>
+                        <option value="Sort by highest price">Sort by highest price</option>
+                        <option value="Sort by newest albums">Sort by newest albums</option>
+                        <option value="Sort by oldest albums">Sort by oldest albums</option>
                     </select>
                 </nav>
             </div>
