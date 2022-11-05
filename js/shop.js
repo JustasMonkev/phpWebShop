@@ -141,11 +141,4 @@ function displaySortedItems(array) {
     for (const element of array) {
         document.getElementById("products").append(element);
     }
-    const divs = Array.from(document.getElementsByTagName('div'));
-
-    for (const element of divs) {
-        if (element.innerHTML === '' || element.textContent === '') {
-            element.remove();
-        }
-    }
 }
